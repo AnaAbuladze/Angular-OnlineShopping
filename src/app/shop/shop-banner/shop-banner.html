@@ -1,0 +1,81 @@
+<div class="carousel-wrap">
+  <div
+    class="carousel"
+    (mouseenter)="onMouseEnter()"
+    (mouseleave)="onMouseLeave()"
+    (touchstart)="onTouchStart($event)"
+    (touchend)="onTouchEnd($event)"
+  >
+    @for (slide of slides; track slide.bgUrl; let i = $index) {
+      <div
+        class="slide"
+        [class.active]="current() === i"
+        [class.slide-blue]="slide.theme === 'blue'"
+        [class.slide-purple]="slide.theme === 'purple'"
+        [class.slide-orange]="slide.theme === 'orange'"
+      >
+        <div
+          class="slide-bg"
+          [style.background-image]="'url(' + slide.bgUrl + ')'"
+        ></div>
+
+        <div class="slide-overlay"></div>
+
+        <div class="slide-content">
+          <div
+            class="slide-eyebrow"
+            [style.color]="slide.accentColor"
+          >{{ slide.eyebrow }}</div>
+
+          <h2 class="slide-title">
+            @for (line of slide.title; track line; let last = $last) {
+              {{ line }}<br *ngIf="!last">
+            }
+          </h2>
+
+          <p class="slide-desc">{{ slide.desc }}</p>
+
+          <div class="slide-btns">
+            <button
+              class="btn-primary"
+              [style.background]="slide.theme === 'purple'
+                ? 'linear-gradient(135deg,#7c3aed,#4f46e5)'
+                : slide.theme === 'orange'
+                  ? 'linear-gradient(135deg,#ea580c,#f97316)'
+                  : '#0071e3'"
+            >{{ slide.primaryBtn }}</button>
+            <button class="btn-secondary">{{ slide.secondaryBtn }}</button>
+          </div>
+        </div>
+      </div>
+    }
+
+    <div class="progress-bar">
+      <div
+        class="progress-fill"
+        [style.width.%]="progressWidth()"
+        [style.background]="currentSlide().progressColor"
+      ></div>
+    </div>
+  </div>
+
+  <div class="controls">
+    <div class="dots">
+      @for (slide of slides; track slide.bgUrl; let i = $index) {
+        <button
+          class="dot"
+          [class.active]="current() === i"
+          (click)="goTo(i)"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+        ></button>
+      }
+    </div>
+
+    <div class="counter">{{ counterText() }}</div>
+
+    <div class="arrows">
+      <button class="arrow" (click)="prev()" aria-label="Previous slide">&#8592;</button>
+      <button class="arrow" (click)="next()" aria-label="Next slide">&#8594;</button>
+    </div>
+  </div>
+</div>

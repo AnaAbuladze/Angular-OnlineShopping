@@ -1,1 +1,48 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Slab:wght@100..900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Playfair+Display:wght@600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto+Slab:wght@100..900&family=Poppins:wght@400;600&family=Outfit:wght@400;500;600;700&display=swap");
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+  width: 1170px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1200px) {
+  .container {
+    width: 960px;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .container {
+    width: 720px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .container {
+    width: 100%; 
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    width: 570px;
+    width: 100%;
+    padding:0;
+  }
+}

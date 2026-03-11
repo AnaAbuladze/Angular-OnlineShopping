@@ -1,0 +1,55 @@
+<div class="area">
+
+  <div class="brands area-section">
+    <h1>Brands</h1>
+    <ul>
+      <li [class.activedBrand]="activeBrand == 'All'" (click)="showAll()">All</li>
+      @for (item of brands; track $index) {
+        <li [class.activedBrand]="item == activeBrand" (click)="getBrandData(item)">
+          {{ item }}
+        </li>
+      }
+    </ul>
+  </div>
+
+  <div class="search area-section">
+    <span class="search-icon">🔍</span>
+    <input
+      (keyup.enter)="searchData()"
+      type="search"
+      placeholder="Search here..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+
+  <div class="prices area-section">
+    <h4>Select price:</h4>
+    <input type="text" placeholder="from" [(ngModel)]="minPrice" />
+    <input type="text" placeholder="to" [(ngModel)]="maxPrice" />
+  </div>
+
+  <div class="rating area-section">
+    <h4>Rating:</h4>
+    <input type="number" placeholder="0" max="5" min="0" [(ngModel)]="rating"/>
+  </div>
+
+  <div class="sort area-section">
+    <select [(ngModel)]="type">
+      <option value="">Choose Type</option>
+      <option value="rating">Rating</option>
+      <option value="price">Price</option>
+      <option value="issue_date">Issue Date</option>
+      <option value="title">Title</option>
+    </select>
+    <select [(ngModel)]="sort">
+      <option value="">Sort Direction</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+  </div>
+
+  <div class="area-section">
+    <button (click)="filterData()"><span>Filter</span></button>
+  </div>
+
+</div>

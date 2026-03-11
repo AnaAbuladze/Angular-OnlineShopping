@@ -1,0 +1,105 @@
+.notAccountErr {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.errCard {
+  background: #fff;
+  border-radius: 12px;
+  padding: 36px 32px 28px;
+  width: min(420px, 92vw);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  position: relative;
+  text-align: center;
+  animation: popIn 0.25s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92) translateY(16px); }
+  to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+
+.errCard .close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid #e0e0e0;
+  background: transparent;
+  color: #888;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  padding: 0;
+}
+
+.errCard .close:hover {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.errCard h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin: 0 0 10px;
+}
+
+.errCard p {
+  font-size: 14px;
+  color: #777;
+  margin: 0 0 28px;
+  line-height: 1.6;
+}
+
+.btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btns button {
+  flex: 1;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.btns button:first-child {
+  background: #000;
+  color: #fff;
+  border: 1.5px solid #000;
+}
+
+.btns button:first-child:hover {
+  background: #333;
+}
+
+.btns button:last-child {
+  background: #fff;
+  color: #000;
+  border: 1.5px solid #000;
+}
+
+.btns button:last-child:hover {
+  background: #000;
+  color: #fff;
+}

@@ -1,0 +1,90 @@
+<header></header>
+<app-shop-banner></app-shop-banner>
+
+<article>
+  <div class="sidebar">
+    <app-side-bar
+      (sendBrands)="switchBrands($event)"
+      (sendAllProducts)="showProducts(1, pageSize)"
+      (sendFilterData)="filterProducts($event)"
+      (sendSearchInfo)="search($event)">
+    </app-side-bar>
+  </div>
+
+  <section class="container">
+    <div class="categories">
+      @for (item of categories; track $index) {
+        <button>
+          <img [src]="item.image" alt="" />
+          <h4 (click)="showByCategory(item.id, currentPage)">{{ item.name }}</h4>
+        </button>
+      }
+    </div>
+
+  <main>
+  @if (isLoading) {
+    @for (item of [1,2,3,4,5,6,7,8,9,10,11,12]; track $index) {
+      <div class="card skeleton">
+        <div class="skeleton-img"></div>
+        <div class="skeleton-line long"></div>
+        <div class="skeleton-line short"></div>
+        <div class="skeleton-line medium"></div>
+      </div>
+    }
+  }
+
+  @if (productList.length === 0 && hasFiltered && !isLoading) {
+    <div class="not-found">
+      <img src="https://cdn-icons-png.flaticon.com/512/6598/6598519.png" alt="No products found"/>
+      <h3>No Products Found</h3>
+      <p>Try adjusting your filters or search terms.</p>
+    </div>
+  }
+
+  @if (!isLoading) {
+    @for (item of productList; track $index) {
+      <div class="card">
+        <h6 [style.display]="item.stock > 0 ? 'none' : 'unset'">
+          {{ item.stock <= 0 ? 'Out of Stock' : '' }}
+        </h6>
+        <img
+          [src]="(!item.images[0] || item.images[0].startsWith('https://alta.ge')) ? altImage : item.images[0]"
+          alt="product"
+        />
+        <h4>{{ item.title }}</h4>
+        <h2>${{ item.price.current }} <sub>${{ item.price.beforeDiscount }}</sub></h2>
+        <p>{{ item.description }}</p>
+        <div class="hiddenPart">
+                   <button routerLink="/details/{{item._id}}"><i class="fa-solid fa-eye"></i> See More</button>
+
+        </div>
+      </div>
+    }
+  }
+</main>
+
+@if (pageList.length > 1 && !isLoading && productList.length > 0) {
+  <div class="bottomArea">
+    <span></span>
+    <div class="pages">
+      <button [disabled]="currentPage === 1" (click)="prevPage()" class="arrows">
+        &larr; prev
+      </button>
+      @for (item of pageList; track $index) {
+        <button
+          [class.current]="item == currentPage"
+          (click)="!isCategoryShown ? showProducts(item, pageSize) : showByCategory(currentCategory, item)"
+        >
+          {{ item }}
+        </button>
+      }
+      <button [disabled]="currentPage === pageList.length" (click)="nextPage()" class="arrows">
+        next &rarr;
+      </button>
+    </div>
+  </div>
+}
+
+  </section>
+</article>
+<app-footer></app-footer>

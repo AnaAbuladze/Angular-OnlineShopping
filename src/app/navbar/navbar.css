@@ -1,0 +1,127 @@
+section {
+  border-bottom: 1px solid black;
+}
+
+nav.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  flex-wrap: wrap;
+}
+
+nav a {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+  line-height: 2.4;
+  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-size: 40px;
+}
+
+.account {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+button {
+  font-family: 'Poppins', sans-serif;
+  cursor: pointer;
+  padding: 10px 20px;
+  background-color: white;
+  border: 1.5px solid black;
+  color: black;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 8px;
+  transition: background-color 0.35s ease,
+              color 0.35s ease,
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.account button[routerLink="/profile"] {
+  background: whitesmoke;
+  color: black
+  ;
+  border: 1.5px solid black;
+  padding: 7px 14px 7px 8px;
+  gap: 10px;
+}
+
+.account button[routerLink="/profile"] img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+@media (max-width: 992px) {
+
+  nav a {
+    font-size: 32px;
+  }
+
+  button {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  nav.container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  nav a {
+    font-size: 28px;
+  }
+
+  .account {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .account button {
+    padding: 7px 14px;
+    font-size: 12px;
+  }
+
+  .account button img {
+    width: 24px;
+    height: 24px;
+  }
+
+}
+
+@media (max-width: 400px) {
+
+  nav a {
+    font-size: 24px;
+  }
+
+  .account {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .account button {
+    width: 100%;
+    justify-content: center;
+  }
+
+}

@@ -1,0 +1,182 @@
+@if (isLoading) {
+<div class="loaderWrap">
+  <span class="loader"></span>
+</div>
+}
+@else if (prodINFO) {
+<section class="container detailArea">
+  <div class="left">
+    <img class="mainImg" [src]="mainImage" alt="" />
+    <div class="otherIMGS">
+      @for (item of allImages; track $index) {
+      <img [class.activeImg]="item === mainImage" (click)="zoomImg(item)" [src]="item" alt="" />
+      }
+    </div>
+  </div>
+
+  <div class="middle">
+    <h2>{{ prodINFO.title }}</h2>
+    <div class="rating">
+      <div class="stars">
+        @if (starNum == 0) {
+        <h5>No Rating</h5>
+        }
+        @else {
+        @for (item of [].constructor(starNum); track $index) {
+        <i class="fa-solid fa-star"></i>
+        }
+        <span>{{ prodINFO.rating }}</span>
+        }
+      </div>
+    </div>
+    @if (prodINFO.stock > 0) {
+    <h4 style="color:green">
+      <i class="fa-solid fa-check"></i>
+      {{ prodINFO.stock }} In stock
+    </h4>
+    }
+    @else {
+    <h4 style="color:red">
+      <i class="fa-solid fa-xmark"></i>
+      Not in stock
+    </h4>
+    }
+    <div class="tabs">
+      <button [class.activeTab]="activeTab === 'details'" (click)="setTab('details')">
+        Details
+      </button>
+      <button [class.activeTab]="activeTab === 'reviews'" (click)="setTab('reviews')">
+        Reviews ({{ reviews.length }})
+      </button>
+    </div>
+    @if (activeTab === 'details') {
+    <ul>
+      <li>Category: {{ prodINFO.category.name }}</li>
+      <li>Brand: {{ prodINFO.brand }}</li>
+      <li>Issue Date: {{ prodINFO.issueDate | date }}</li>
+      <li>Warranty: {{ prodINFO.warranty }} years</li>
+    </ul>
+    <div class="desc">
+      <h3>Description</h3>
+      <div class="line"></div>
+    </div>
+    <p>{{ prodINFO.description }}</p>
+    }
+    @if (activeTab === 'reviews') {
+    <div class="reviewForm">
+      <h3>Leave a Review</h3>
+      <div class="starPicker">
+        @for (s of [1,2,3,4,5]; track s) {
+        <i class="fa-star" [class.fa-solid]="s <= (hoverStar || newReview.rating)"
+          [class.fa-regular]="s > (hoverStar || newReview.rating)" (mouseenter)="hoverStar = s"
+          (mouseleave)="hoverStar = 0" (click)="newReview.rating = s">
+        </i>
+        }
+      </div>
+      <textarea [(ngModel)]="newReview.comment" placeholder="Write your review..." rows="3">
+      </textarea>
+      <button (click)="submitReview()" class="submitReview"
+        [disabled]="submitting || !newReview.rating || !newReview.comment.trim()">
+        <i class="fa-solid fa-paper-plane"></i>
+        {{ submitting ? 'Submitting...' : 'Submit Review' }}
+      </button>
+    </div>
+    @if (reviews.length === 0) {
+    <p class="noReviews">
+      No reviews yet. Be the first!
+    </p>
+    }
+    @else {
+    <div class="reviewsList">
+      @for (r of reviews; track $index) {
+      <div class="reviewCard">
+        <div class="reviewTop">
+          <div class="reviewAvatar">
+            {{ r.author?.charAt(0)?.toUpperCase() || '?' }}
+          </div>
+          <div class="reviewMeta">
+            <strong>{{ r.author }}</strong>
+            <span class="reviewDate">
+              {{ r.date }}
+            </span>
+          </div>
+          <div class="reviewStars">
+            @for (s of [1,2,3,4,5]; track s) {
+            <i class="fa-star" [class.fa-solid]="s <= r.rating" [class.fa-regular]="s > r.rating">
+            </i>
+            }
+          </div>
+        </div>
+        <p>{{ r.quote }}</p>
+      </div>
+      }
+    </div>
+    }
+    }
+  </div>
+  <div class="right">
+    @if (prodINFO.price.discountPercentage != 0) {
+    <h2 class="disc">
+      -{{ prodINFO.price.discountPercentage }}%
+    </h2>
+    }
+    <div class="prices">
+      <h1>
+        {{ prodINFO.price.current | currency }}
+      </h1>
+      @if (prodINFO.price.current != prodINFO.price.beforeDiscount) {
+      <h1 class="beforeDisc">
+        {{ prodINFO.price.beforeDiscount | currency }}
+      </h1>
+      }
+    </div>
+    <div class="quantity">
+      <button [disabled]="prodQuant == 1" (click)="decrease()">-
+      </button>
+      <h2>{{ prodQuant }}</h2>
+      <button (click)="increase()">+</button>
+    </div>
+    <button [disabled]="prodINFO.stock <= 0" (click)="cartBTN(prodINFO._id)" class="cartBtn">
+      <i class="fa-solid fa-cart-shopping"></i>
+      Add To Cart
+    </button>
+
+
+    <div class="line"></div>
+
+    <div class="delivInfos">
+
+      <p>
+        <i class="fa-solid fa-truck-fast"></i>
+        Worldwide shipping
+      </p>
+
+      <p>
+        <i class="fa-solid fa-table-cells-row-lock"></i>
+        Secure payment
+      </p>
+
+      <p>
+        <i class="fa-solid fa-calendar-check"></i>
+        {{ prodINFO.warranty }} years full warranty
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+}
+
+@if (showAuthError) {
+
+<app-sign-in (closeEmit)="showAuthError = false" (loggedEmit)="showAuthError = false">
+</app-sign-in>
+
+}
+
+
+<div class="addSms" [class.show]="toastVisible">
+  {{ toastMessage }}
+</div>

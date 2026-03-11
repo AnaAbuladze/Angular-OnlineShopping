@@ -1,0 +1,363 @@
+
+
+
+.signArea {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  font-family: 'DM Sans', sans-serif;
+}
+
+form {
+  position: relative;
+  background: #ffffff;
+  color: #0a0a0a;
+  width: min(780px, 95vw);
+  max-height: 92vh;
+  overflow-y: auto;
+  border-radius: 2px;
+  padding: 48px 48px 40px;
+  box-shadow:
+    0 0 0 1px #000,
+    8px 8px 0px #000;
+  scrollbar-width: thin;
+  scrollbar-color: #000 #f0f0f0;
+}
+
+form::-webkit-scrollbar { width: 4px; }
+form::-webkit-scrollbar-track { background: #f0f0f0; }
+form::-webkit-scrollbar-thumb { background: #000; }
+
+.fa-x {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 13px;
+  cursor: pointer;
+  color: #000;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.fa-x:hover {
+  background: #000;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 52px;
+  letter-spacing: 4px;
+  color: #000;
+  margin: 0 0 6px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+h1::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: #000;
+  margin-top: 10px;
+}
+
+.success {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #000;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.errors {
+  list-style: none;
+  padding: 12px 16px;
+  margin: 10px 0 20px 0;
+  border: 1.5px solid #000;
+  border-left: 4px solid #000;
+  background: #f8f8f8;
+  border-radius: 2px;
+}
+
+.errors li {
+  font-size: 13px;
+  color: #1a1a1a;
+  padding: 4px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.errors li i {
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  margin-top: 32px;
+}
+
+.area {
+  position: relative;
+  margin-bottom: 22px;
+}
+
+.area i {
+  position: absolute;
+  left: 0;
+  bottom: 11px;
+  font-size: 13px;
+  color: #999;
+  pointer-events: none;
+  transition: color 0.2s;
+}
+
+.area label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 6px;
+  padding-left: 22px;
+  transition: color 0.2s;
+}
+
+.area input[type="text"],
+.area input[type="email"],
+.area input[type="password"] {
+  width: 100%;
+  padding: 8px 8px 8px 22px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #d0d0d0;
+  border-radius: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #0a0a0a;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.area input:focus {
+  border-bottom-color: #000;
+}
+
+.area input:focus ~ i,
+.area input:focus + label,
+.area:focus-within label {
+  color: #000;
+}
+
+.area:focus-within i {
+  color: #000;
+}
+
+.bottomContent {
+  margin-top: 12px;
+  border-top: 1px solid #e8e8e8;
+  padding-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto auto;
+  gap: 0 40px;
+  align-items: start;
+}
+
+.imageArea {
+  grid-column: 1;
+  grid-row: 1 / 4;
+}
+
+.imageArea label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 6px;
+  padding-left: 22px;
+}
+
+.imageArea i {
+  position: absolute;
+  left: 0;
+  bottom: 11px;
+  font-size: 13px;
+  color: #999;
+}
+
+.imageArea {
+  position: relative;
+}
+
+.imageArea input[type="text"] {
+  width: 100%;
+  padding: 8px 8px 8px 22px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid #d0d0d0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  color: #0a0a0a;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.imageArea input:focus {
+  border-bottom-color: #000;
+}
+
+h3 {
+  grid-column: 2;
+  grid-row: 1;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #888;
+  margin: 0 0 10px;
+}
+
+.chooseArea {
+  grid-column: 2;
+  grid-row: 2;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.choose {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.choose label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+}
+
+.choose input[type="radio"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #bbb;
+  border-radius: 50%;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s;
+}
+
+.choose input[type="radio"]:checked {
+  border-color: #000;
+}
+
+.choose input[type="radio"]:checked::after {
+  content: '';
+  position: absolute;
+  inset: 3px;
+  background: #000;
+  border-radius: 50%;
+}
+
+button[type="submit"] {
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: 20px;
+  background: #000;
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 18px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border: 2px solid #000;
+  border-radius: 2px;
+  padding: 12px 32px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 3px 3px 0 #000;
+}
+
+button[type="submit"]:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+button[type="submit"]:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 #000;
+}
+
+button[type="submit"]:disabled {
+  background: #e0e0e0;
+  color: #aaa;
+  border-color: #ccc;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 600px) {
+  form {
+    padding: 36px 24px 32px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .bottomContent {
+    grid-template-columns: 1fr;
+  }
+
+  h3,
+  .chooseArea,
+  button[type="submit"] {
+    grid-column: 1;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    margin-top: 16px;
+  }
+}

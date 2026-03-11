@@ -1,0 +1,69 @@
+section {
+    background-color: black;
+    padding: 20px; 
+}
+
+div {
+    background-color: black;
+    display: flex;
+    margin: auto;
+    align-items: center;
+    justify-content: center; 
+    width: 40%;
+    padding: 12px;
+    gap: 8px;
+    flex-wrap: wrap; 
+}
+
+p {
+    color: aliceblue;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400; 
+    text-align: center; 
+}
+
+a.header-title {
+    color: aliceblue;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; 
+    text-decoration: underline;
+    transition: all 0.3s ease; 
+    cursor: pointer;
+}
+
+a.header-title:hover {
+    color: rgb(104, 67, 67);
+}
+
+@media screen and (max-width: 1024px) {
+    div {
+        width: 60%; 
+        padding: 10px;
+    }
+    p, a.header-title {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    div {
+        width: 80%; 
+        flex-direction: column; 
+        gap: 6px;
+    }
+    p, a.header-title {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    div {
+        width: 95%; 
+        padding: 8px;
+    }
+    p, a.header-title {
+        font-size: 11px;
+    }
+}

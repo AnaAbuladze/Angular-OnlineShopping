@@ -1,0 +1,264 @@
+<header></header>
+
+@if (userData) {
+
+  <div class="userHead">
+    <div class="avatarWrap">
+      <img [src]="userData.avatar || altImage"
+           (error)="userData.avatar = altImage"
+           alt="avatar" />
+    </div>
+
+    <div class="infoHead">
+      <h1>
+        {{ userData.firstName }} {{ userData.lastName }}
+        @if (userData.verified) {
+          <i class="fa-solid fa-circle-check verifiedIcon"></i>
+        }
+      </h1>
+      <p class="tagline">{{ userData.email }}</p>
+      <div class="sideInfo">
+        <span><i class="fa-solid fa-location-dot"></i> {{ userData.address || '—' }}</span>
+        <span><i class="fa-solid fa-phone-volume"></i> {{ userData.phone || '—' }}</span>
+        <span><i class="fa-solid fa-envelope"></i> {{ userData.email }}</span>
+      </div>
+    </div>
+
+    <div class="areaSetting">
+      <button class="gearBtn" (click)="toggleSettings()">
+        <i class="fa-solid fa-gear"></i>
+      </button>
+
+      @if (settingsOpen) {
+        <ul class="settings">
+          <li (click)="showProfileInfo()">
+            <i class="fa-solid fa-pen"></i> Update Info
+          </li>
+          <li (click)="showChangePassword()">
+            <i class="fa-solid fa-lock"></i> Change Password
+          </li>
+          <li class="danger" (click)="showDeleteAccount()">
+            <i class="fa-solid fa-trash"></i> Delete Account
+          </li>
+        </ul>
+      }
+    </div>
+  </div>
+
+  @if (cartList.length > 0) {
+    <main>
+
+      <div class="leftSide">
+        <div class="cartHeading">
+          <div>
+            <h1>Shopping Cart</h1>
+            <span class="itemCount">{{ cartList.length }} items</span>
+          </div>
+          <button (click)="removeAll()" class="removeAll">
+            <i class="fa-solid fa-trash"></i> Remove All
+          </button>
+        </div>
+
+        <div class="list">
+          @for (item of cartList; track $index) {
+            <div class="listItem">
+              <img
+                [src]="item.images[0] || altImage"
+                (error)="item.images[0] = altImage"
+                alt="product"
+              />
+              <div class="title">
+                <span class="catLabel">{{ item.category.name }}</span>
+                <h4>{{ item.title }}</h4>
+              </div>
+              <div class="quantity">
+                <button (click)="updateQuantity(item, -1)">−</button>
+                <p>{{ item.quantity }}</p>
+                <button (click)="updateQuantity(item, +1)">+</button>
+              </div>
+              <p class="itemPrice">{{ (item.price.current * item.quantity) | currency }}</p>
+              <button (click)="deleteItem(item._id)" class="trash">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          }
+        </div>
+      </div>
+
+      <div class="rightSide">
+        <h2 class="summaryTitle">Order Summary</h2>
+        <div class="summaryRow">
+          <span>Subtotal</span>
+          <span>{{ total | currency }}</span>
+        </div>
+        <div class="summaryRow">
+          <span>Shipping</span>
+          <span class="shippingTag">Standard — $10.00</span>
+        </div>
+        <div class="divider"></div>
+        <div class="summaryRow total">
+          <span>Total</span>
+          <span>{{ (total + 10) | currency }}</span>
+        </div>
+        <button (click)="checkOut()" class="checkoutBtn">
+          <i class="fa-solid fa-lock"></i> Checkout
+        </button>
+      </div>
+
+    </main>
+
+  } @else {
+    <div class="noCart">
+      <i class="fa-solid fa-{{ cartSMS ? 'circle-check' : 'cart-shopping' }}"></i>
+      <h2>{{ cartSMS ? 'Order placed successfully!' : 'Your cart is empty' }}</h2>
+      <p>{{ cartSMS ? 'Thank you for your purchase.' : 'Browse our collection and find something you love.' }}</p>
+      <button routerLink="/shop">Go to Shop</button>
+    </div>
+  }
+
+}
+
+
+
+@if (activeModal) {
+  <div class="modalOverlay" (click)="closeModal()">
+    <div class="modalBox" (click)="$event.stopPropagation()">
+
+     
+      @if (activeModal === 'info') {
+        <div class="modalHeader">
+          <h2><i class="fa-solid fa-pen"></i> Update Info</h2>
+          <button class="modalClose" (click)="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modalBody">
+          <div class="formRow">
+            <div class="formGroup">
+              <label>First Name</label>
+              <input type="text" [(ngModel)]="profileForm.firstName" placeholder="First name" />
+            </div>
+            <div class="formGroup">
+              <label>Last Name</label>
+              <input type="text" [(ngModel)]="profileForm.lastName" placeholder="Last name" />
+            </div>
+          </div>
+
+          <div class="formRow">
+            <div class="formGroup">
+              <label>Age</label>
+              <input type="number" [(ngModel)]="profileForm.age" placeholder="Age" min="1" />
+            </div>
+            <div class="formGroup">
+              <label>Gender</label>
+              <select [(ngModel)]="profileForm.gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="formGroup">
+            <label>Address</label>
+            <input type="text" [(ngModel)]="profileForm.address" placeholder="Your address" />
+          </div>
+
+          <div class="formRow">
+            <div class="formGroup">
+              <label>Phone</label>
+              <input type="text" [(ngModel)]="profileForm.phone" placeholder="+1 234 567 890" />
+            </div>
+            <div class="formGroup">
+              <label>Zipcode</label>
+              <input type="text" [(ngModel)]="profileForm.zipcode" placeholder="12345" />
+            </div>
+          </div>
+
+          <div class="formGroup">
+            <label>Avatar URL</label>
+            <input type="text" [(ngModel)]="profileForm.avatar" placeholder="https://..." />
+          </div>
+
+          @if (modalError)   { <p class="msgError"><i class="fa-solid fa-circle-xmark"></i> {{ modalError }}</p> }
+          @if (modalSuccess) { <p class="msgSuccess"><i class="fa-solid fa-circle-check"></i> {{ modalSuccess }}</p> }
+        </div>
+
+        <div class="modalFooter">
+          <button class="btnSecondary" (click)="closeModal()">Cancel</button>
+          <button class="btnPrimary" (click)="submitUpdateProfile()" [disabled]="submitting">
+            <i class="fa-solid fa-floppy-disk"></i>
+            {{ submitting ? 'Saving...' : 'Save Changes' }}
+          </button>
+        </div>
+      }
+
+   
+      @if (activeModal === 'password') {
+        <div class="modalHeader">
+          <h2><i class="fa-solid fa-lock"></i> Change Password</h2>
+          <button class="modalClose" (click)="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modalBody">
+          <div class="formGroup">
+            <label>Current Password</label>
+            <input type="password" [(ngModel)]="passwordForm.oldPassword" placeholder="••••••••" />
+          </div>
+          <div class="formGroup">
+            <label>New Password</label>
+            <input type="password" [(ngModel)]="passwordForm.newPassword" placeholder="••••••••" />
+          </div>
+          <div class="formGroup">
+            <label>Confirm New Password</label>
+            <input type="password" [(ngModel)]="passwordForm.repeatNewPassword" placeholder="••••••••" />
+          </div>
+
+          @if (modalError)   { <p class="msgError"><i class="fa-solid fa-circle-xmark"></i> {{ modalError }}</p> }
+          @if (modalSuccess) { <p class="msgSuccess"><i class="fa-solid fa-circle-check"></i> {{ modalSuccess }}</p> }
+        </div>
+
+        <div class="modalFooter">
+          <button class="btnSecondary" (click)="closeModal()">Cancel</button>
+          <button class="btnPrimary" (click)="submitChangePassword()" [disabled]="submitting">
+            <i class="fa-solid fa-key"></i>
+            {{ submitting ? 'Updating...' : 'Update Password' }}
+          </button>
+        </div>
+      }
+
+      
+      @if (activeModal === 'delete') {
+        <div class="modalHeader danger">
+          <h2><i class="fa-solid fa-triangle-exclamation"></i> Delete Account</h2>
+          <button class="modalClose" (click)="closeModal()">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modalBody">
+          <div class="deleteWarning">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <p>
+              This action is <strong>permanent</strong> and cannot be undone.
+              All your data, orders, and account information will be deleted immediately.
+            </p>
+          </div>
+
+          @if (modalError) { <p class="msgError"><i class="fa-solid fa-circle-xmark"></i> {{ modalError }}</p> }
+        </div>
+
+        <div class="modalFooter">
+          <button class="btnSecondary" (click)="closeModal()">Cancel</button>
+          <button class="btnDanger" (click)="confirmDelete()" [disabled]="submitting">
+            <i class="fa-solid fa-trash"></i>
+            {{ submitting ? 'Deleting...' : 'Yes, Delete My Account' }}
+          </button>
+        </div>
+      }
+
+    </div>
+  </div>
+}

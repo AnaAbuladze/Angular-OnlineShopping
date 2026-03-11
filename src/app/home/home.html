@@ -1,0 +1,59 @@
+<app-banner></app-banner>
+<section class=" text-carousel ">
+  <div class="carousel-wrapper">
+    <div class="carousel-track">
+      <span>Fast Delivery &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>24/7 Customer Support &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Money Back Guarantee &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>High Quality Products &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Free Shipping on Orders $50+ &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Fast Delivery &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>24/7 Customer Support &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Money Back Guarantee &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>High Quality Products &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Free Shipping on Orders $50+ &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+            <span>Fast Delivery &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>24/7 Customer Support &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>Money Back Guarantee &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      <span>High Quality Products &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+      
+      <span>Free Shipping on Orders $50+ &nbsp;&nbsp;•&nbsp;&nbsp;</span>
+    </div>
+  </div>
+</section>
+<section class="container featured-laptops">
+  <h2 class="section-title">Featured Laptops</h2>
+
+  <main>
+    <div class="card" *ngFor="let item of productList; let i = index">
+      <h6 [style.display]="item.stock > 0 ? 'none' : 'unset'">
+        {{ item.stock <= 0 ? 'Out of Stock' : '' }}
+      </h6>
+
+      <img
+        [src]="item.images[0].startsWith('https://alta.ge/') 
+        ? 'https://thumb.ac-illust.com/b1/b170870007dfa419295d949814474ab2_t.jpeg' 
+        : item.images[0]"
+        alt="product"
+      />
+
+      <h4>{{ item.title }}</h4>
+
+      <h2>
+        ${{ item.price.current }}
+        <sub>${{ item.price.beforeDiscount }}</sub>
+      </h2>
+
+      <p>{{ item.description }}</p>
+
+      <div class="hiddenPart">
+       <button [routerLink]="['/details', item._id]">
+  <i class="fa-solid fa-eye"></i> See More 
+</button>
+      </div>
+    </div>
+  </main>
+
+  <button routerLink="/shop" class="viewMore">View More</button>
+</section>
+<app-footer></app-footer>

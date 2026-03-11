@@ -1,0 +1,34 @@
+<section>
+  <nav class="container">
+    <a routerLink="/" class="home-link">EXCLUSIVE</a>
+
+    <div class="account">
+      @if (!isLoggedIn) {
+        <button (click)="showRegister()">Create Account</button>
+        <button (click)="signInForm()">Sign in</button>
+      } @else {
+        <button routerLink="/profile">
+          <img [src]="userImg" alt="">{{userName}}
+        </button>
+        <button (click)="signOut()">
+          <i class="fa-solid fa-right-to-bracket"></i> Sign Out
+        </button>
+      }
+    </div>
+  </nav>
+
+  @if(isSignShow){
+    <app-sign-in
+      (closeEmit)="closeForm($event)"
+      (changeEmit)="showRegister()"
+      (loggedEmit)="loggedIn($event)">
+    </app-sign-in>
+  }
+
+  @if(isRegisterShow){
+    <app-sign-up
+      (closeEmit)="closeRegister($event)">
+    </app-sign-up>
+  }
+
+</section>
