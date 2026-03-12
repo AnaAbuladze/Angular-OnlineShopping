@@ -4,6 +4,7 @@ import { ProfilePage } from './profile-page/profile-page';
 import { Cart } from './cart/cart';
 import { Shop } from './shop/shop';
 import { Detail } from './shop/detail/detail';
+import { ErrorPage } from './error-page/error-page';
 
 export const routes: Routes = [
     {path:"",component:Home},
@@ -11,5 +12,6 @@ export const routes: Routes = [
     {path:"cart",component:Cart},
     {path:"shop",component:Shop},
     {path: "details/:id", component: Detail},
+    {path:"**",component:ErrorPage}
 
 ];

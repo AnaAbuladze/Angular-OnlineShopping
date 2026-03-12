@@ -1,5 +1,5 @@
 @if (isLoading) {
-<div class="loaderWrap">
+<div class="loaderWrap flex">
   <span class="loader"></span>
 </div>
 }
@@ -7,17 +7,16 @@
 <section class="container detailArea">
   <div class="left">
     <img class="mainImg" [src]="mainImage" alt="" />
-    <div class="otherIMGS">
+    <div class="otherIMGS flex">
       @for (item of allImages; track $index) {
       <img [class.activeImg]="item === mainImage" (click)="zoomImg(item)" [src]="item" alt="" />
       }
     </div>
   </div>
-
   <div class="middle">
     <h2>{{ prodINFO.title }}</h2>
     <div class="rating">
-      <div class="stars">
+      <div class="stars flex">
         @if (starNum == 0) {
         <h5>No Rating</h5>
         }
@@ -30,7 +29,7 @@
       </div>
     </div>
     @if (prodINFO.stock > 0) {
-    <h4 style="color:green">
+    <h4 style="color:green" class="flex">
       <i class="fa-solid fa-check"></i>
       {{ prodINFO.stock }} In stock
     </h4>
@@ -140,43 +139,25 @@
       <i class="fa-solid fa-cart-shopping"></i>
       Add To Cart
     </button>
-
-
     <div class="line"></div>
-
     <div class="delivInfos">
-
       <p>
-        <i class="fa-solid fa-truck-fast"></i>
         Worldwide shipping
       </p>
-
       <p>
-        <i class="fa-solid fa-table-cells-row-lock"></i>
         Secure payment
       </p>
-
       <p>
-        <i class="fa-solid fa-calendar-check"></i>
         {{ prodINFO.warranty }} years full warranty
       </p>
-
     </div>
-
   </div>
-
 </section>
-
 }
-
 @if (showAuthError) {
-
 <app-sign-in (closeEmit)="showAuthError = false" (loggedEmit)="showAuthError = false">
 </app-sign-in>
-
 }
-
-
 <div class="addSms" [class.show]="toastVisible">
   {{ toastMessage }}
 </div>

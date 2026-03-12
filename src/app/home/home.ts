@@ -13,23 +13,8 @@ import { AllProductArea } from '../interfaces/all-product';
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home implements OnInit {
+export class Home {
   constructor(private service: ApiProduct) {}
 
-  protected productList!: Product[];
-
-  ngOnInit(): void {
-    this.showCards();
-  }
-
-  showCards() {
-    this.service.getCardsforHome().subscribe({
-      next: (data: AllProductArea) => {
-        this.productList = data.products;
-      },
-      error: (error) => {
-        console.error('Failed to load home products:', error);
-      },
-    });
-  }
+ 
 }
